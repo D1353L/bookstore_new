@@ -122,14 +122,12 @@ ActiveRecord::Schema.define(version: 20170407081513) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.integer  "user_id"
     t.integer  "billing_address_id"
     t.integer  "shipping_address_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.index ["billing_address_id"], name: "index_profiles_on_billing_address_id", using: :btree
     t.index ["shipping_address_id"], name: "index_profiles_on_shipping_address_id", using: :btree
-    t.index ["user_id"], name: "index_profiles_on_user_id", using: :btree
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -145,8 +143,10 @@ ActiveRecord::Schema.define(version: 20170407081513) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.integer  "profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_users_on_profile_id", using: :btree
   end
 
   add_foreign_key "authors_books", "authors"
@@ -163,7 +163,7 @@ ActiveRecord::Schema.define(version: 20170407081513) do
   add_foreign_key "orders", "users"
   add_foreign_key "profiles", "addresses", column: "billing_address_id"
   add_foreign_key "profiles", "addresses", column: "shipping_address_id"
-  add_foreign_key "profiles", "users"
   add_foreign_key "reviews", "books"
   add_foreign_key "reviews", "users"
+  add_foreign_key "users", "profiles"
 end
