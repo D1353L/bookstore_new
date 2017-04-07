@@ -1,6 +1,6 @@
 class Profile < ApplicationRecord
   has_many :credit_cards
   belongs_to :user
-  belongs_to :preferable_billing_address
-  belongs_to :preferable_shipping_address
+  belongs_to :billing_address, :class_name => 'Address'
+  belongs_to :shipping_address, :class_name => 'Address'
 end
