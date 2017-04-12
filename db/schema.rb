@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170407081513) do
+ActiveRecord::Schema.define(version: 20170412160017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20170407081513) do
     t.string   "phone"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   create_table "authors", force: :cascade do |t|
@@ -45,9 +47,9 @@ ActiveRecord::Schema.define(version: 20170407081513) do
     t.string   "short_description"
     t.text     "full_description"
     t.string   "image"
-    t.decimal  "price",             precision: 12, scale: 3
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.decimal  "price",             precision: 8, scale: 2
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
   end
 
   create_table "books_categories", force: :cascade do |t|
@@ -65,12 +67,12 @@ ActiveRecord::Schema.define(version: 20170407081513) do
 
   create_table "coupons", force: :cascade do |t|
     t.string   "code"
-    t.decimal  "discount",   precision: 12, scale: 3
+    t.decimal  "discount",   precision: 8, scale: 2
     t.boolean  "active"
     t.integer  "quantity"
     t.date     "expiration"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "credit_cards", force: :cascade do |t|
@@ -85,11 +87,11 @@ ActiveRecord::Schema.define(version: 20170407081513) do
 
   create_table "order_items", force: :cascade do |t|
     t.integer  "quantity"
-    t.decimal  "unit_price", precision: 12, scale: 3
+    t.decimal  "unit_price", precision: 8, scale: 2
     t.integer  "book_id"
     t.integer  "order_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.index ["book_id"], name: "index_order_items_on_book_id", using: :btree
     t.index ["order_id"], name: "index_order_items_on_order_id", using: :btree
   end
@@ -101,16 +103,16 @@ ActiveRecord::Schema.define(version: 20170407081513) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.decimal  "subtotal_price",      precision: 12, scale: 3
-    t.decimal  "total_price",         precision: 12, scale: 3
-    t.decimal  "shipping_price",      precision: 12, scale: 3
+    t.decimal  "subtotal_price",      precision: 8, scale: 2
+    t.decimal  "total_price",         precision: 8, scale: 2
+    t.decimal  "shipping_price",      precision: 8, scale: 2
     t.integer  "order_status_id"
     t.integer  "user_id"
     t.integer  "coupon_id"
     t.integer  "billing_address_id"
     t.integer  "shipping_address_id"
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.index ["billing_address_id"], name: "index_orders_on_billing_address_id", using: :btree
     t.index ["coupon_id"], name: "index_orders_on_coupon_id", using: :btree
     t.index ["order_status_id"], name: "index_orders_on_order_status_id", using: :btree

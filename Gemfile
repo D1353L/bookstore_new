@@ -16,10 +16,17 @@ gem 'jbuilder', '~> 2.5'
 
 group :development, :test do
   gem 'byebug', platform: :mri
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
 end
 
 group :development do
   gem 'web-console', '>= 3.3.0'
+end
+
+group :test do
+  gem 'ffaker'
+  gem 'database_cleaner'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
